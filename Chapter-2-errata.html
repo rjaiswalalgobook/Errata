@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 2 Errata</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each entry shows the printed text beside the correction. */
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --fg:#1d2330; --muted:#5c6475; --rule:#dcdad3;
+  --ok:#1f6b45; --ok-bg:#e2f1e8;
+  --code-bg:#efeee9; --accent:#274690;
+  --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);margin:0;
+  padding-block:2.5rem 4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:52rem;margin:0 auto}
+h1,h2{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.2}
+h2{font-size:1.35rem;margin-top:2.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+.sub{color:var(--muted);margin:.4rem 0 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.entry{padding:1.4rem 0;border-bottom:1px solid var(--rule)}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .8rem}
+.where{font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:.6rem 0}
+.box{min-width:0;padding:.7rem .9rem;border-radius:6px;font-size:.92rem;background:var(--surface);border:1px solid var(--rule)}
+.box .lab{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.box.fix{border-color:var(--ok);background:var(--ok-bg)} .box.fix .lab{color:var(--ok)}
+code,.m{font-family:var(--mono);font-size:.86em;background:var(--code-bg);padding:.05em .3em;border-radius:3px;overflow-wrap:anywhere}
+.why{font-size:.93rem;margin:.5rem 0 0}
+@media (max-width:620px){.grid{grid-template-columns:1fr} h1{font-size:1.65rem}}
+</style>
+
+<main>
+<header>
+  <h1>Chapter 2 Errata</h1>
+  <p class="sub">Algorithms: A gentler approach, Chapter 2 “Graph Algorithms”</p>
+</header>
+
+<h2>Errors</h2>
+
+<article class="entry">
+  <div class="head"><span class="where">Algorithm ReachableWithPrePost (p. 32)</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>
+      <code>visited[v] = marker</code><br>
+      <code>for all edges (v,u) ∈ E: if visited[u] = 0:</code><br>
+      <code>&nbsp;&nbsp;parent[u] = v</code><br>
+      <code>&nbsp;&nbsp;pre[u] = clock; clock++</code><br>
+      <code>&nbsp;&nbsp;ReachableWithPrePost(G,u,marker)</code><br>
+      <code>post[v] = clock; clock++</code>
+    </div>
+    <div class="box fix"><span class="lab">Should be</span>
+      <code>visited[v] = marker</code><br>
+      <code>pre[v] = clock; clock++</code><br>
+      <code>for all edges (v,u) ∈ E: if visited[u] = 0:</code><br>
+      <code>&nbsp;&nbsp;parent[u] = v</code><br>
+      <code>&nbsp;&nbsp;ReachableWithPrePost(G,u,marker)</code><br>
+      <code>post[v] = clock; clock++</code>
+    </div>
+  </div>
+  <p class="why">As printed, <code>pre</code> is set only for nodes discovered from a parent, so the root of every DFS tree never gets a pre number. 
+   Another way to ensure that the roots get the <code>pre</code> number without changing  <code>ReachableWithPrePost</code> is to add <code>pre[v]=clock; clock++</code> within
+    <code>DFSWithPrePost</code> just before making the call <code>ReachableWithPrePost(G, v, i)</code>.</p>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Exercise 2.15 (p. 34)</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>“Argue that a cross edge is always from a node u to another node v that is toward the left of node u in the DFS forest. In other words, <em>u</em> was discovered before <em>v</em>.”</div>
+    <div class="box fix"><span class="lab">Should be</span>“In other words, <em>v</em> was discovered before <em>u</em>.”</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Figure 2.40 (p. 49)</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>The edges <span class="m">B→D</span> and <span class="m">E→H</span> carry no weight label.</div>
+    <div class="box fix"><span class="lab">Should be</span>Add a weight 2 to the edge <span class="m">B→D</span> and 1 to the edge <span class="m">E→H</span>.</div>
+  </div>
+</article>
+
+</main>
+</html>
