@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 1 Errata</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each entry shows the printed text beside the correction. */
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --fg:#1d2330; --muted:#5c6475; --rule:#dcdad3;
+  --major:#b3261e; --major-bg:#fbe9e7;
+  --mod:#8a5a00; --mod-bg:#fdf1d6;
+  --minor:#31566f; --minor-bg:#e3eef5;
+  --ok:#1f6b45; --ok-bg:#e2f1e8;
+  --code-bg:#efeee9; --accent:#274690;
+  --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --major:#ff8a80; --major-bg:#3a1f1d; --mod:#f0c26a; --mod-bg:#372b12; --minor:#8dc0e0; --minor-bg:#1b2e3b;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --major:#ff8a80; --major-bg:#3a1f1d; --mod:#f0c26a; --mod-bg:#372b12; --minor:#8dc0e0; --minor-bg:#1b2e3b;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);margin:0;
+  padding-block:2.5rem 4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:52rem;margin:0 auto}
+h1,h2{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.2}
+h2{font-size:1.35rem;margin-top:2.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+.sub{color:var(--muted);margin:.4rem 0 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.entry{padding:1.4rem 0;border-bottom:1px solid var(--rule)}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .8rem}
+.where{font-size:.9rem;color:var(--muted)}
+.entry h3{font-size:1.05rem;font-weight:600;margin:.5rem 0 .6rem;text-wrap:balance}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:.6rem 0}
+.box{min-width:0;padding:.7rem .9rem;border-radius:6px;font-size:.92rem;background:var(--surface);border:1px solid var(--rule)}
+.box .lab{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.box.fix{border-color:var(--ok);background:var(--ok-bg)} .box.fix .lab{color:var(--ok)}
+code,.m{font-family:var(--mono);font-size:.86em;background:var(--code-bg);padding:.05em .3em;border-radius:3px;overflow-wrap:anywhere}
+.why{font-size:.93rem;margin:.5rem 0 0}
+@media (max-width:620px){.grid{grid-template-columns:1fr} h1{font-size:1.65rem}}
+</style>
+
+<main>
+<header>
+  <h1>Chapter 1 Errata</h1>
+  <p class="sub">Algorithms: A gentler approach, Chapter 1 “Introduction”</p>
+</header>
+
+<h2>Errors</h2>
+
+<article class="entry">
+  <div class="head"><span class="where">Margin, Insertion Sort, Input 2</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>running time is <span class="m">an + Σ<sub>i</sub>(di + e) = an + d·n(n+1)/2 + en = …</span></div>
+    <div class="box fix"><span class="lab">Should be</span><span class="m">an + b + Σ<sub>i</sub>(di + e) = (d/2)n<sup>2</sup> + (a + d/2 + e)n + b</span></div>
+  </div>
+  <p class="why">The loop cost is <span class="m">an + b</span> (stated earlier in the margin) and Input 1 keeps the <span class="m">b</span>. The conclusion (quadratic) is unaffected.</p>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Section 1.4 · Running time discussion of TestPrimality</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>“In every iteration of the while-loop…”, “the number of iterations of the while-loop is val(A) − 2”, “the while loop runs for 2<sup>n</sup> − 3 iterations”.</div>
+    <div class="box fix"><span class="lab">Should be</span>for-loop, in all three places.</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Exercise 1.9</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>design an algorithm with running time <span class="m">O(n<sup>2</sup> 2<sup>√n</sup>)</span>.</div>
+    <div class="box fix"><span class="lab">Should be</span><span class="m">O(n<sup>2</sup> 2<sup>n/2</sup>)</span></div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Margin (Exercises page) “Recursive functions”</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>“However, Exercise 1.10 gives us an excuse to review recursive functions quickly.”</div>
+    <div class="box fix"><span class="lab">Should be</span>Exercise 1.12</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Exercise 1.15(d)</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>Use induction to argue that <span class="m">2<sup>n/2</sup> ≤ Fib(n) ≤ 2<sup>n</sup></span>.</div>
+    <div class="box fix"><span class="lab">Should be</span><span class="m">2<sup>(n−2)/2</sup> ≤ Fib(n) ≤ 2<sup>n</sup></span>, or keep <span class="m">2<sup>n/2</sup></span> and say “for n ≥ 6”.</div>
+  </div>
+</article>
+
+</main>
+</html>
