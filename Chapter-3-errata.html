@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 3 Errata</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each entry shows the printed text beside the correction. */
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --fg:#1d2330; --muted:#5c6475; --rule:#dcdad3;
+  --ok:#1f6b45; --ok-bg:#e2f1e8;
+  --code-bg:#efeee9; --accent:#274690;
+  --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171e; --surface:#1b1f28; --fg:#e7e9ee; --muted:#9aa2b3; --rule:#2c313d;
+  --ok:#7fd1a2; --ok-bg:#16301f; --code-bg:#242936; --accent:#9db4f5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);margin:0;
+  padding-block:2.5rem 4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:52rem;margin:0 auto}
+h1,h2{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.2}
+h2{font-size:1.35rem;margin-top:2.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+.sub{color:var(--muted);margin:.4rem 0 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.entry{padding:1.4rem 0;border-bottom:1px solid var(--rule)}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .8rem}
+.where{font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:.6rem 0}
+.box{min-width:0;padding:.7rem .9rem;border-radius:6px;font-size:.92rem;background:var(--surface);border:1px solid var(--rule)}
+.box .lab{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.box.fix{border-color:var(--ok);background:var(--ok-bg)} .box.fix .lab{color:var(--ok)}
+code,.m{font-family:var(--mono);font-size:.86em;background:var(--code-bg);padding:.05em .3em;border-radius:3px;overflow-wrap:anywhere}
+.why{font-size:.93rem;margin:.5rem 0 0}
+@media (max-width:620px){.grid{grid-template-columns:1fr} h1{font-size:1.65rem}}
+</style>
+
+<main>
+<header>
+  <h1>Chapter 3 Errata</h1>
+  <p class="sub">Algorithms: A gentler approach, Chapter 3 “Shortest Path and Graph Case Studies”</p>
+</header>
+
+<h2>Errors</h2>
+
+<article class="entry">
+  <div class="head"><span class="where">Definition of P(k) in Section 3.1.1</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>(ii) <span class="m">dist[u] = ℓ(v, u)</span> for every node <span class="m">u</span> in layers 1, 2, …, k</div>
+    <div class="box fix"><span class="lab">Should be</span>… in layers 0, 1, 2, …, k</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Fig 3.8 caption</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>The above figure demonstrates the execution of <code>SimulateBFS</code> on the graph of Figure 3.7.</div>
+    <div class="box fix"><span class="lab">Should be</span>... on the graph given above.</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Case 4 of the incremental reachability discussion in Section 3.2.1.1</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>“Case 4 (<i>visited</i>[u] = False and <i>visited</i>[v] = True)”</div>
+    <div class="box fix"><span class="lab">Should be</span>“Case 4 (<i>visited</i>[u] = True and <i>visited</i>[v] = False)”</div>
+  </div>
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Margin figure for the earliest-arrival example and Fig 3.25</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>MUM chain: 01:30, 02:05, 02:20, 05:55, <b>06:45</b>, 11:00, 12:25, 13:55, 18:05.</div>
+    <div class="box fix"><span class="lab">Should be</span>MUM chain: 01:30, 02:05, 02:20, 05:55, 11:00, <b>11:45</b>, 12:25, 13:55, 18:05.</div>
+  </div>
+  <!--<p class="why">No flight in the table arrives at or leaves MUM at 06:45, while F<sub>7</sub> leaves MUM at 11:45 and has no node. The figure is also missing (DEL, 19:40) for F<sub>2</sub>, although departures such as F<sub>5</sub> at 01:30 are shown. The results 11:25 and 15:25 are unaffected.</p>-->
+</article>
+
+<article class="entry">
+  <div class="head"><span class="where">Figure 3.27 caption</span></div>
+  <div class="grid">
+    <div class="box"><span class="lab">As printed</span>the graph on the left is bipartite, with <span class="m">L = {A, C}</span> and <span class="m">R = {B, D}</span></div>
+    <div class="box fix"><span class="lab">Should be</span><span class="m">L = {A, D}</span> and <span class="m">R = {B, C}</span></div>
+  </div>
+</article>
+
+</main>
+</html>
